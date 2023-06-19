@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="main_layout.html">
+<div layout:fragment="siteContent">
+    <div class="container mt-2">
+        <div class="row">
+            <div class="col-12 mb-3">
+                <span data-bs-toggle="modal" data-bs-target="#addFolder">
+                    <a>+New Folder</a>
+                </span>
+            </div>
+            <div class="col mb-4" th:each="folder, status: ${folders}">
+                <div class="card" style="width: 100%; height: 100%">
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-body-secondary">
+                            <span th:text="${folder.name}"></span>
+                        </h6>
+                        <a th:href="@{'/folder-details/' + ${folder.id}}"
+                                class="btn btn-primary btn-sm">Details</a>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="addFolder" data-bs-backdrop="static"
+                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form action="/add-folder" method="post">
+                            <div class="modal-header">
+                                <h5 class="modal-title">ADD NEW FOLDER</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <label>Folder Name:</label>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12">
+                                            <input type="text" class="form-control"
+                                                   name="name" placeholder="Folder Name">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success">Add Folder</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

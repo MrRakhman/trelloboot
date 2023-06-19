@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="main_layout.html">
+<div layout:fragment="siteContent">
+    <div class="col mb-4" th:if="${folder.id == folderId}">
+        <div class="card" style="height: 100%">
+            <div class="card-body">
+                <h4 class="card-subtitle mb-2 text-body-secondary">
+                    <span th:text="${folder.name}"></span>
+                </h4>
+                <div class="d-flex justify-content-sm-start">
+                    <div class="col-12">
+                        <button class="btn btn-group btn-primary" th:each="category: ${categories}"
+                                th:text="${category.name}">
+                            <span class="btn-close">&times;</span>
+                        </button>
+                        <h5>
+                            <a>+Add Category</a>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 mb-3">
+        <span data-bs-toggle="modal" data-bs-target="#addTask">
+            <a>+New Folder</a>
+        </span>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Task Name</th>
+            <th>Status</th>
+            <th style="width: 10%">Details</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="task:${tasks}">
+            <td th:text="${task.id}"></td>
+            <td th:text="${task.title}"></td>
+            <td>
+                <span th:if="${task.status == 0}" th:class="text-primary">TO DO</span>
+                <span th:if="${task.status == 1}" th:class="text-warning">IN TEST</span>
+                <span th:if="${task.status == 2}" th:class="text-success">DONE</span>
+                <span th:if="${task.status == 3}" th:class="text-danger">FAILED</span>
+            </td>
+            <td style="width: 20%;">
+                <a th:href="@{'/task-details/' + ${task.id}}"
+                   class="btn btn-primary btn-sm">View More</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</html>
