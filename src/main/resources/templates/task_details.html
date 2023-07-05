@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="main_layout.html">
+<div layout:fragment="siteContent">
+  <div class="row">
+    <div class="col-8 mx-auto">
+      <form th:action="@{'/change-task/' + ${folder.id}}" method="post">
+        <input type="hidden" name="taskId" th:value="${task.id}">
+        <div class="row">
+          <div class="col-12">
+            <h5 class="text-center">TASK TITLE:</h5>
+          </div>
+          <div class="row mt-2">
+            <div class="col-12">
+              <input type="text" class="form-control" name="title" placeholder="Title"
+                     th:value="${task.title}" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-12">
+            <h5 class="text-center">TASK DESCRIPTION:</h5>
+          </div>
+          <div class="row mt-2">
+            <div class="col-12">
+            <textarea type="text" class="form-control" name="description" placeholder="Description"
+                      th:text="${task.description}" readonly rows="6"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-12">
+            <h5 class="text-center">STATUS:</h5>
+          </div>
+          <div class="row mt-2">
+            <div class="col-12">
+              <select class="form-control" name="status">
+                <option value="0" th:selected="${task.status == 0}">TO DO</option>
+                <option value="1" th:selected="${task.status == 1}">IN TEST</option>
+                <option value="2" th:selected="${task.status == 2}">DONE</option>
+                <option value="3" th:selected="${task.status == 3}">FAILED</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-12">
+            <button type="submit" class="btn btn-success">Change Status</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
