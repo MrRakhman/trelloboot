@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+  backend:
+    image: 'mrrakhman/sprint-task-trello'
+    container_name: 'self-generated-backend-container'
+    depends_on: 
+      - pgdb
+    environment: 
+      - SERVER_PORT=9999
+      - SPRING_DATASOURCE_USERNAME=akhmed
+      - SPRING_DATASOURCE_PASSWORD=007225
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://pgdb:5432/postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=false
+    ports:
+      - 8004:9999
+
+  pgdb:
+    image: 'postgres'
+    container_name: 'pg-container'
+    environment: 
+      - POSTGRES_USER=akhmed
+      - POSTGRES_PASSWORD=007225
+    ports:
+      - 2345:5432
